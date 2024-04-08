@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 @Data
 @Document("Users")
-public class MyUser {
+public class User {
     //private String name;
+    private String password;
     private String username;
     @Id
     private String id;

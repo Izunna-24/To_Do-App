@@ -1,5 +1,5 @@
 package africa.todo.data.models;
 
-public enum TaskCategory {
+public enum Category {
     WORK, PERSONAL;
 }

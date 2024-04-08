@@ -9,10 +9,10 @@ import java.time.LocalDateTime;
 @Document("Tasks")
 public class Task {
     private String taskName;
-    private TaskStatus taskStatus;
-    private TaskCategory taskCategory;
+    private Status status = Status.PENDING;
+    private Category category;
     @Id
     private String id;
     private String content;
-    private LocalDateTime taskDateTime;
+    private LocalDateTime taskDateTime = LocalDateTime.now();
 }

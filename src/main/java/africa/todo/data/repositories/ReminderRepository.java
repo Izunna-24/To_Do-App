@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface ReminderRepository extends MongoRepository<Reminder, String> {
     Optional<Reminder> findById(String id);
-    Optional<Reminder> findReminderByNameOfTask(String nameOfTask);
-    Optional<Reminder> findReminderByReminderTime(String reminderTime);
+//    Optional<Reminder> findReminderByNameOfTask(String nameOfTask);
+//    Optional<Reminder> findReminderByReminderTime(String reminderTime);
 }

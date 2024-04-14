@@ -12,5 +12,6 @@ public class Reminder {
     private String nameOfTask;
     @Id
     private String id;
-    //private TaskCategory type;
+    private Priority priority;
+    private String message;
 }

@@ -17,4 +17,5 @@ public class Task {
     //private Reminder reminder;
     private Priority priority;
     private LocalDateTime taskDateTime = LocalDateTime.now();
+    private LocalDateTime dateEdited;
 }

@@ -5,16 +5,19 @@ import africa.todo.dataTransferObjects.requests.CreateTaskRequest;
 import africa.todo.dataTransferObjects.requests.DeleteTaskRequest;
 import africa.todo.dataTransferObjects.requests.EditTaskRequest;
 import africa.todo.dataTransferObjects.requests.ViewTaskRequest;
+import africa.todo.dataTransferObjects.responses.DeleteTaskResponse;
+import africa.todo.dataTransferObjects.responses.EditTaskResponse;
+import africa.todo.dataTransferObjects.responses.ViewTaskResponse;
 
 import java.util.List;
 
 public interface TaskServices {
     Task createTask(CreateTaskRequest createTaskRequest);
-    Task viewTask(ViewTaskRequest viewTaskRequest);
-    Task deleteTask(DeleteTaskRequest deleteTaskRequest);
-    Task editTask(EditTaskRequest editTaskRequest);
+    ViewTaskResponse viewTask(ViewTaskRequest viewTaskRequest);
+    DeleteTaskResponse deleteTask(DeleteTaskRequest deleteTaskRequest);
+    EditTaskResponse editTask(EditTaskRequest editTaskRequest);
     //Task findTaskByUser(User user);
     List<Task> findAllTask();
-    Task findTaskByTitle(String title);
+    Task findByName(String title);
     Task findById(String id);
 }

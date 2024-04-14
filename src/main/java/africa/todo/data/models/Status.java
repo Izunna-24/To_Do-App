@@ -1,5 +1,5 @@
 package africa.todo.data.models;
 
 public enum Status {
-    COMPLETED, PENDING, MISSED;
+    STARTED,COMPLETED, PENDING, MISSED, inPROGRESS;
 }

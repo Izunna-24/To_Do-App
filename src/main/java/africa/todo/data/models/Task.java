@@ -14,5 +14,7 @@ public class Task {
     @Id
     private String id;
     private String content;
+    //private Reminder reminder;
+    private Priority priority;
     private LocalDateTime taskDateTime = LocalDateTime.now();
 }

@@ -7,6 +7,6 @@ import org.springframework.http.HttpStatusCode;
 @Data
 @AllArgsConstructor
 public class ApiResponse {
-    private boolean is_Ok;
+    private boolean isSuccessful;
     private Object data;
 }

@@ -1,10 +1,11 @@
 package africa.todo.controllers;
 
-import africa.todo.dataTransferObjects.requests.GetTaskRequest;
+
 import africa.todo.dataTransferObjects.requests.ViewTaskRequest;
 import africa.todo.dataTransferObjects.responses.ApiResponse;
 import africa.todo.exceptions.ToDoExceptions;
 import africa.todo.services.TaskServices;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,4 +31,16 @@ public class TaskController {
             return new ResponseEntity<>(new ApiResponse(false,error.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/find_task")
+    public ResponseEntity<?> findAll(){
+        try{
+            var result = taskServices.findAllTask();
+            return new ResponseEntity<>(new ApiResponse(true, result),HttpStatus.CREATED);
+        }catch (ToDoExceptions error){
+            return new ResponseEntity<>(new ApiResponse(false,error.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
 }
+
+

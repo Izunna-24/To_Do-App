@@ -33,8 +33,9 @@ public class UserServicesImpl implements UserServices {
 
     @Override
     public CreateTaskResponse setTask(CreateTaskRequest createTaskRequest) {
+
         Optional<User> user = userRepository.findById(createTaskRequest.getUserId());
-//throw exception
+
         Task task = taskServices.createTask(createTaskRequest);
         user.get().getTasks().add(task);
         userRepository.save(user.get());
@@ -68,6 +69,8 @@ public class UserServicesImpl implements UserServices {
 
     @Override
     public List<Task> findTaskByName(String taskName) {
+       // Task task =
+
         return null;
     }
 

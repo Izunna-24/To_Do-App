@@ -38,7 +38,7 @@ public class UserController {
     public ResponseEntity<?> deleteTask(@RequestBody DeleteTaskRequest deleteTaskRequest){
         try{
             var result = userServices.deleteTask(deleteTaskRequest);
-            return new ResponseEntity<>(new ApiResponse(true, result),HttpStatus.CREATED);
+            return new ResponseEntity<>(new ApiResponse(true, result),HttpStatus.OK);
         }catch (ToDoExceptions error){
             return new ResponseEntity<>(new ApiResponse(false,error.getMessage()), HttpStatus.BAD_REQUEST);
         }
@@ -48,18 +48,18 @@ public class UserController {
     public ResponseEntity<?> getTask(@RequestBody GetTaskRequest getTaskRequest){
         try{
             var result = userServices.getTask(getTaskRequest);
-            return new ResponseEntity<>(new ApiResponse(true, result),HttpStatus.CREATED);
+            return new ResponseEntity<>(new ApiResponse(true, result),HttpStatus.OK);
         }catch (ToDoExceptions error){
-            return new ResponseEntity<>(new ApiResponse(false,error.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ApiResponse(false,error.getMessage()), HttpStatus.NOT_FOUND);
         }
     }
     @PatchMapping("/edit_task")
     public ResponseEntity<?> editTask(@RequestBody EditTaskRequest editTaskRequest){
         try{
             var result = userServices.editTask(editTaskRequest);
-            return new ResponseEntity<>(new ApiResponse(true, result),HttpStatus.CREATED);
+            return new ResponseEntity<>(new ApiResponse(true, result),HttpStatus.OK);
         }catch (ToDoExceptions error){
-            return new ResponseEntity<>(new ApiResponse(false,error.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ApiResponse(false,error.getMessage()), HttpStatus.NOT_FOUND);
         }
     }
 

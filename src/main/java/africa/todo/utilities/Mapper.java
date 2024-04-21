@@ -8,6 +8,7 @@ import africa.todo.dataTransferObjects.requests.RegisterRequest;
 import africa.todo.dataTransferObjects.responses.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Mapper {
     public static User regMap(RegisterRequest registerRequest) {
@@ -28,7 +29,7 @@ public class Mapper {
         Task task = new Task();
         task.setTaskName(createTaskRequest.getTaskName());
         task.setContent(createTaskRequest.getContent());
-        task.setTaskDateTime(LocalDateTime.now());
+        task.setDueDate(LocalDateTime.now().plusDays(createTaskRequest.getDueDate()));
         task.setCategory(createTaskRequest.getCategory());
         task.setPriority(createTaskRequest.getPriority());
         return task;
@@ -36,7 +37,7 @@ public class Mapper {
 
     public static CreateTaskResponse taskCreatedResponse(Task task) {
         CreateTaskResponse createTaskResponse = new CreateTaskResponse();
-        createTaskResponse.setTaskId(task.getId());
+       // createTaskResponse.setTaskId(task.getId());
         createTaskResponse.setTaskName(task.getTaskName());
         return createTaskResponse;
     }
@@ -69,6 +70,7 @@ public class Mapper {
     public static Task editTaskMap(EditTaskRequest editTaskRequest, Task task) {
         task.setTaskName(editTaskRequest.getTaskName());
         task.setContent(editTaskRequest.getContent());
+        task.setDueDate(LocalDateTime.now().plusDays(editTaskRequest.getDueDate()));
         task.setCategory(editTaskRequest.getCategory());
         task.setPriority(editTaskRequest.getPriority());
         task.setDateEdited(LocalDateTime.now());

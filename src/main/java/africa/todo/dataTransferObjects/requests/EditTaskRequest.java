@@ -18,5 +18,6 @@ public class EditTaskRequest {
     private LocalDateTime taskDateTime;
     private Category category;
     private Priority priority;
+    private int dueDate;
 }
 

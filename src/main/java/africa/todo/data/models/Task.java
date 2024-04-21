@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 @Data
 @Document("Tasks")
@@ -17,5 +18,6 @@ public class Task {
     //private Reminder reminder;
     private Priority priority;
     private LocalDateTime taskDateTime = LocalDateTime.now();
+    private LocalDateTime dueDate;
     private LocalDateTime dateEdited;
 }

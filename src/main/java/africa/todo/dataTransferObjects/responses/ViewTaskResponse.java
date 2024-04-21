@@ -6,6 +6,4 @@ import lombok.Data;
 @Data
 public class ViewTaskResponse {
     private Task task;
-    private String taskId;
-//    private String userId;
 }

@@ -8,7 +8,6 @@ import africa.todo.dataTransferObjects.requests.RegisterRequest;
 import africa.todo.dataTransferObjects.responses.*;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Mapper {
     public static User regMap(RegisterRequest registerRequest) {
@@ -77,10 +76,10 @@ public class Mapper {
         return task;
     }
 
-    public static ViewTaskResponse viewTaskResponse(Task task) {
-        ViewTaskResponse viewTaskResponse = new ViewTaskResponse();
-        viewTaskResponse.setTaskId(task.getId());
-        viewTaskResponse.setTask(task);
-        return viewTaskResponse;
+    public static ViewAllTaskResponse viewTaskResponse(Task task) {
+        ViewAllTaskResponse viewAllTaskResponse = new ViewAllTaskResponse();
+        //viewAllTaskResponse.setTaskId(task.getId());
+        viewAllTaskResponse.setTask(task);
+        return viewAllTaskResponse;
     }
 }

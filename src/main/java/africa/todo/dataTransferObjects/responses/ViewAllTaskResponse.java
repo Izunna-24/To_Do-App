@@ -4,6 +4,6 @@ import africa.todo.data.models.Task;
 import lombok.Data;
 
 @Data
-public class ViewTaskResponse {
+public class ViewAllTaskResponse {
     private Task task;
 }

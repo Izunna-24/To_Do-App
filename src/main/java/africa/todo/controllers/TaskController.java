@@ -1,7 +1,7 @@
 package africa.todo.controllers;
 
 
-import africa.todo.dataTransferObjects.requests.ViewTaskRequest;
+import africa.todo.dataTransferObjects.requests.ViewAllTaskRequest;
 import africa.todo.dataTransferObjects.responses.ApiResponse;
 import africa.todo.exceptions.ToDoExceptions;
 import africa.todo.services.TaskServices;
@@ -23,9 +23,9 @@ public class TaskController {
 
 
     @GetMapping("/view_task")
-    public ResponseEntity<?> viewTask(@RequestBody ViewTaskRequest viewTaskRequest){
+    public ResponseEntity<?> viewAllTask(@RequestBody ViewAllTaskRequest viewAllTaskRequest){
         try{
-            var result = taskServices.viewTask(viewTaskRequest);
+            var result = taskServices.viewAllTask(viewAllTaskRequest);
             return new ResponseEntity<>(new ApiResponse(true, result),HttpStatus.CREATED);
         }catch (ToDoExceptions error){
             return new ResponseEntity<>(new ApiResponse(false,error.getMessage()), HttpStatus.BAD_REQUEST);

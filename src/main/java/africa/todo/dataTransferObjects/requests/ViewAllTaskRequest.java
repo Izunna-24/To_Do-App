@@ -3,7 +3,7 @@ package africa.todo.dataTransferObjects.requests;
 import lombok.Data;
 
 @Data
-public class ViewTaskRequest {
+public class ViewAllTaskRequest {
     private String id;
     private String taskName;
 }

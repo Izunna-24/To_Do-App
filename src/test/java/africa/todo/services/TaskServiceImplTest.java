@@ -7,9 +7,8 @@ import africa.todo.data.repositories.TaskRepository;
 import africa.todo.dataTransferObjects.requests.CreateTaskRequest;
 import africa.todo.dataTransferObjects.requests.DeleteTaskRequest;
 import africa.todo.dataTransferObjects.requests.EditTaskRequest;
-import africa.todo.dataTransferObjects.requests.ViewTaskRequest;
-import africa.todo.dataTransferObjects.responses.DeleteTaskResponse;
-import africa.todo.dataTransferObjects.responses.ViewTaskResponse;
+import africa.todo.dataTransferObjects.requests.ViewAllTaskRequest;
+import africa.todo.dataTransferObjects.responses.ViewAllTaskResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,12 +114,12 @@ class TaskServiceImplTest {
 
         assertEquals(1,taskRepository.count());
 
-        ViewTaskRequest viewTaskRequest = new ViewTaskRequest();
-        viewTaskRequest.setId(taskRepository.findAll().getFirst().getId());
-        viewTaskRequest.setTaskName("Study for Mock");
-        ViewTaskResponse viewTaskResponse = taskServices.viewTask(viewTaskRequest);
+        ViewAllTaskRequest viewAllTaskRequest = new ViewAllTaskRequest();
+        viewAllTaskRequest.setId(taskRepository.findAll().getFirst().getId());
+        viewAllTaskRequest.setTaskName("Study for Mock");
+        ViewAllTaskResponse viewAllTaskResponse = taskServices.viewAllTask(viewAllTaskRequest);
 
-        assertEquals("Study for Mock", viewTaskResponse.getTask().getTaskName());
+        assertEquals("Study for Mock", viewAllTaskResponse.getTask().getTaskName());
 
 
 

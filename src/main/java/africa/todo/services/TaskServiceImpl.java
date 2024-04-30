@@ -5,10 +5,10 @@ import africa.todo.data.repositories.TaskRepository;
 import africa.todo.dataTransferObjects.requests.CreateTaskRequest;
 import africa.todo.dataTransferObjects.requests.DeleteTaskRequest;
 import africa.todo.dataTransferObjects.requests.EditTaskRequest;
-import africa.todo.dataTransferObjects.requests.ViewTaskRequest;
+import africa.todo.dataTransferObjects.requests.ViewAllTaskRequest;
 import africa.todo.dataTransferObjects.responses.DeleteTaskResponse;
 import africa.todo.dataTransferObjects.responses.EditTaskResponse;
-import africa.todo.dataTransferObjects.responses.ViewTaskResponse;
+import africa.todo.dataTransferObjects.responses.ViewAllTaskResponse;
 import africa.todo.exceptions.TaskContentEmptyException;
 import africa.todo.exceptions.TaskNameEmptyException;
 import africa.todo.exceptions.TaskNotFoundException;
@@ -16,7 +16,6 @@ import africa.todo.utilities.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,8 +39,8 @@ public class TaskServiceImpl implements TaskServices {
     }
 
     @Override
-    public ViewTaskResponse viewTask(ViewTaskRequest viewTaskRequest) {
-        Optional<Task> task = taskRepository.findById(viewTaskRequest.getId());
+    public ViewAllTaskResponse viewAllTask(ViewAllTaskRequest viewAllTaskRequest) {
+        Optional<Task> task = taskRepository.findById(viewAllTaskRequest.getId());
         if (task.isEmpty())
             throw new TaskNotFoundException("Task was never created");
         return Mapper.viewTaskResponse(task.get());

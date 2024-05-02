@@ -10,13 +10,13 @@ import java.time.LocalDateTime;
 @Document("Tasks")
 public class Task {
     private String taskName;
+    private String userId;
     private Status status = Status.PENDING;
     private Category category;
     @Id
-    private String id;
+    private String taskId;
     private String content;
     private Priority priority;
     private LocalDateTime taskDateTime = LocalDateTime.now();
-    private LocalDateTime dueDate;
-    private LocalDateTime dateEdited;
+    private LocalDateTime dateEdited = LocalDateTime.now();
 }

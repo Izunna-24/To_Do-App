@@ -5,5 +5,6 @@ import lombok.Data;
 
 @Data
 public class ViewAllTaskResponse {
+    private String taskId;
     private Task task;
 }

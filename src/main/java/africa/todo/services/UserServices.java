@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface UserServices {
     RegisterResponse register(RegisterRequest registerRequest);
+    LoginResponse login(LoginRequest loginRequest);
     CreateTaskResponse setTask(CreateTaskRequest createTaskRequest);
     EditTaskResponse editTask(EditTaskRequest editTaskRequest);
     DeleteTaskResponse deleteTask(DeleteTaskRequest deleteTaskRequest);

@@ -7,6 +7,8 @@ import africa.todo.dataTransferObjects.requests.*;
 import africa.todo.dataTransferObjects.responses.*;
 import africa.todo.exceptions.TaskNotFoundException;
 import africa.todo.exceptions.UserExistsException;
+import africa.todo.exceptions.UserNotFoundException;
+import africa.todo.exceptions.WrongLoginException;
 import africa.todo.utilities.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,8 +34,24 @@ public class UserServicesImpl implements UserServices {
     }
 
     @Override
-    public CreateTaskResponse setTask(CreateTaskRequest createTaskRequest) {
+    public LoginResponse login(LoginRequest loginRequest) {
+    User user = userRepository.findByUsername(loginRequest.getUsername());
+        validateLogin(loginRequest, user);
+        user.setUsername(loginRequest.getUsername());
+        user.setPassword(loginRequest.getPassword());
+        user.setLocked(false);
+        userRepository.save(user);
+        return Mapper.loginResponse(user);
+    }
 
+    private static void validateLogin(LoginRequest loginRequest, User user) {
+        if(user == null) throw new UserNotFoundException("user not found");
+        if(user.getUsername() == null || !user.getUsername().equalsIgnoreCase(loginRequest.getUsername())) throw new WrongLoginException("incorrect login detail");
+        if(user.getPassword() == null || !user.getPassword().equals(loginRequest.getPassword())) throw new WrongLoginException("incorrect login detail");
+    }
+
+    @Override
+    public CreateTaskResponse setTask(CreateTaskRequest createTaskRequest) {
         Optional<User> user = userRepository.findById(createTaskRequest.getUserId());
 
         Task task = taskServices.createTask(createTaskRequest);
@@ -60,7 +78,7 @@ public class UserServicesImpl implements UserServices {
 
     private Task findTask(String id, List<Task> tasks) {
         for (Task task : tasks) {
-            if (task.getId().equals(id)) {
+            if (task.getTaskId().equals(id)) {
                 return task;
             }
         }

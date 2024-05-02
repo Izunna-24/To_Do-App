@@ -8,6 +8,7 @@ import africa.todo.dataTransferObjects.requests.RegisterRequest;
 import africa.todo.dataTransferObjects.responses.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Mapper {
     public static User regMap(RegisterRequest registerRequest) {
@@ -28,22 +29,28 @@ public class Mapper {
         Task task = new Task();
         task.setTaskName(createTaskRequest.getTaskName());
         task.setContent(createTaskRequest.getContent());
-        task.setDueDate(LocalDateTime.now().plusDays(createTaskRequest.getDueDate()));
+        String formattedDateTime = createTaskRequest.getTaskDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        LocalDateTime parsedDateTime = LocalDateTime.parse(formattedDateTime, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        task.setTaskDateTime(parsedDateTime);
         task.setCategory(createTaskRequest.getCategory());
         task.setPriority(createTaskRequest.getPriority());
-        return task;
-    }
+        task.setUserId(createTaskRequest.getUserId());
+            return task;
+        }
+
+
 
     public static CreateTaskResponse taskCreatedResponse(Task task) {
         CreateTaskResponse createTaskResponse = new CreateTaskResponse();
-       // createTaskResponse.setTaskId(task.getId());
+       createTaskResponse.setTaskId(task.getTaskId());
+       createTaskResponse.setTaskStatus(task.getStatus());
         createTaskResponse.setTaskName(task.getTaskName());
         return createTaskResponse;
     }
 
     public static DeleteTaskResponse deleteTaskResponse(Task task) {
         DeleteTaskResponse deleteTaskResponse = new DeleteTaskResponse();
-        deleteTaskResponse.setTaskId(task.getId());
+        deleteTaskResponse.setTaskId(task.getTaskId());
         deleteTaskResponse.setTaskName(task.getTaskName());
         return deleteTaskResponse;
 
@@ -51,7 +58,7 @@ public class Mapper {
 
     public static EditTaskResponse editTaskResponse(Task task) {
         EditTaskResponse editTaskResponse = new EditTaskResponse();
-        editTaskResponse.setTaskId(task.getId());
+        editTaskResponse.setTaskId(task.getTaskId());
         editTaskResponse.setTaskName(task.getTaskName());
         editTaskResponse.setDateEdited(task.getDateEdited());
         editTaskResponse.setDateCreated(task.getTaskDateTime());
@@ -69,7 +76,7 @@ public class Mapper {
     public static Task editTaskMap(EditTaskRequest editTaskRequest, Task task) {
         task.setTaskName(editTaskRequest.getTaskName());
         task.setContent(editTaskRequest.getContent());
-        task.setDueDate(LocalDateTime.now().plusDays(editTaskRequest.getDueDate()));
+        task.setTaskDateTime(LocalDateTime.now().plusDays(editTaskRequest.getDueDate()));
         task.setCategory(editTaskRequest.getCategory());
         task.setPriority(editTaskRequest.getPriority());
         task.setDateEdited(LocalDateTime.now());
@@ -78,8 +85,15 @@ public class Mapper {
 
     public static ViewAllTaskResponse viewTaskResponse(Task task) {
         ViewAllTaskResponse viewAllTaskResponse = new ViewAllTaskResponse();
-        //viewAllTaskResponse.setTaskId(task.getId());
+        viewAllTaskResponse.setTaskId(task.getTaskId());
         viewAllTaskResponse.setTask(task);
         return viewAllTaskResponse;
+    }
+
+    public static LoginResponse loginResponse(User user){
+    LoginResponse loginResponse = new LoginResponse();
+    loginResponse.setUsername(user.getUsername());
+    loginResponse.setLocked(user.isLocked());
+    return loginResponse;
     }
 }

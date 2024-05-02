@@ -10,9 +10,12 @@ import java.util.List;
 @Data
 @Document("Users")
 public class User {
-    //private String name;
+    //private String email;
     private String password;
     private String username;
+    private String firstName;
+    private String lastName;
+    private boolean isLocked = true;
     @Id
     private String id;
     @DBRef

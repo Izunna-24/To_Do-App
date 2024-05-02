@@ -3,7 +3,6 @@ package africa.todo.controllers;
 import africa.todo.dataTransferObjects.requests.*;
 import africa.todo.dataTransferObjects.responses.ApiResponse;
 import africa.todo.exceptions.ToDoExceptions;
-import africa.todo.services.TaskServices;
 import africa.todo.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

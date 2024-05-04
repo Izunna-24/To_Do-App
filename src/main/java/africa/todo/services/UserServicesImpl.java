@@ -50,15 +50,15 @@ public class UserServicesImpl implements UserServices {
         if(user.getPassword() == null || !user.getPassword().equals(loginRequest.getPassword())) throw new WrongLoginException("incorrect login detail");
     }
 
-    @Override
-    public CreateTaskResponse setTask(CreateTaskRequest createTaskRequest) {
-        Optional<User> user = userRepository.findById(createTaskRequest.getUserId());
-
-        Task task = taskServices.createTask(createTaskRequest);
-        user.get().getTasks().add(task);
-        userRepository.save(user.get());
-        return Mapper.taskCreatedResponse(task);
-    }
+//    @Override
+//    public CreateTaskResponse setTask(CreateTaskRequest createTaskRequest) {
+//        Optional<User> user = userRepository.findById(createTaskRequest.getUserId());
+//
+//        Task task = taskServices.createTask(createTaskRequest);
+//        user.get().getTasks().add(task);
+//        userRepository.save(user.get());
+//        return Mapper.taskCreatedResponse(task);
+//    }
 
 
 

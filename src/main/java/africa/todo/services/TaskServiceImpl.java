@@ -6,6 +6,7 @@ import africa.todo.dataTransferObjects.requests.CreateTaskRequest;
 import africa.todo.dataTransferObjects.requests.DeleteTaskRequest;
 import africa.todo.dataTransferObjects.requests.EditTaskRequest;
 import africa.todo.dataTransferObjects.requests.ViewAllTaskRequest;
+import africa.todo.dataTransferObjects.responses.CreateTaskResponse;
 import africa.todo.dataTransferObjects.responses.DeleteTaskResponse;
 import africa.todo.dataTransferObjects.responses.EditTaskResponse;
 import africa.todo.dataTransferObjects.responses.ViewAllTaskResponse;
@@ -25,10 +26,11 @@ public class TaskServiceImpl implements TaskServices {
     private TaskRepository taskRepository;
 
     @Override
-    public Task createTask(CreateTaskRequest createTaskRequest) {
+    public CreateTaskResponse createTask(CreateTaskRequest createTaskRequest) {
         validateTaskCreation(createTaskRequest);
         Task task = Mapper.createTaskMap(createTaskRequest);
-        return taskRepository.save(task);
+        taskRepository.save(task);
+        return Mapper.createTaskResponse(task);
     }
 
     private static void validateTaskCreation(CreateTaskRequest createTaskRequest) {

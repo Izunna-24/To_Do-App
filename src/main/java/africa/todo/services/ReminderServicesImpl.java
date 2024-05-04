@@ -20,7 +20,7 @@ public class ReminderServicesImpl implements ReminderServices{
         reminder.setReminderTime(setReminderRequest.getReminderTime());
         reminder.setNameOfTask(setReminderRequest.getNameOfTask());
         reminder.setPriority(setReminderRequest.getPriority());
-        reminder.setMessage(setReminderRequest.getMessage());
+        reminder.setReminderMessage(setReminderRequest.getMessage());
         return reminder;
     }
 }

@@ -39,7 +39,7 @@ public class UserServicesImpl implements UserServices {
         validateLogin(loginRequest, user);
         user.setUsername(loginRequest.getUsername());
         user.setPassword(loginRequest.getPassword());
-        user.setLocked(false);
+        user.setLogin(false);
         userRepository.save(user);
         return Mapper.loginResponse(user);
     }

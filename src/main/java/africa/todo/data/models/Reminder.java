@@ -11,7 +11,7 @@ public class Reminder {
     private LocalDateTime reminderTime;
     private String nameOfTask;
     @Id
-    private String id;
+    private String reminderId;
     private Priority priority;
-    private String message;
+    private String reminderMessage;
 }

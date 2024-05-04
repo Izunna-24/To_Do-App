@@ -20,7 +20,7 @@ public class Mapper {
 
     public static RegisterResponse regResponseMap(User user) {
         RegisterResponse registerResponse = new RegisterResponse();
-        registerResponse.setUserId(user.getId());
+        registerResponse.setUserId(user.getUserId());
         registerResponse.setUsername(user.getUsername());
         return registerResponse;
     }
@@ -93,7 +93,15 @@ public class Mapper {
     public static LoginResponse loginResponse(User user){
     LoginResponse loginResponse = new LoginResponse();
     loginResponse.setUsername(user.getUsername());
-    loginResponse.setLocked(user.isLocked());
+    loginResponse.setLocked(user.isLogin());
     return loginResponse;
+    }
+
+    public static CreateTaskResponse createTaskResponse(Task task){
+        CreateTaskResponse createTaskResponse = new CreateTaskResponse();
+        createTaskResponse.setTaskName(task.getTaskName());
+        createTaskResponse.setTaskStatus(task.getStatus());
+        createTaskResponse.setTaskId(task.getTaskId());
+        return createTaskResponse;
     }
 }

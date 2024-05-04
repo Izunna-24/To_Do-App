@@ -10,16 +10,14 @@ import java.util.List;
 @Data
 @Document("Users")
 public class User {
-    //private String email;
     private String password;
     private String username;
     private String firstName;
     private String lastName;
-    private boolean isLocked = true;
+    private boolean isLogin = true;
     @Id
-    private String id;
+    private String userId;
     @DBRef
     private List<Task> tasks = new ArrayList<>();
-    @DBRef
-    private List<Reminder> reminders = new ArrayList<>();
+
 }

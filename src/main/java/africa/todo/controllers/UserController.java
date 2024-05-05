@@ -2,6 +2,8 @@ package africa.todo.controllers;
 
 import africa.todo.dataTransferObjects.requests.*;
 import africa.todo.dataTransferObjects.responses.ApiResponse;
+import africa.todo.dataTransferObjects.responses.LoginResponse;
+import africa.todo.dataTransferObjects.responses.RegisterResponse;
 import africa.todo.exceptions.ToDoExceptions;
 import africa.todo.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +18,26 @@ public class UserController {
     private UserServices userServices;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest){
-    try{
-        var result = userServices.register(registerRequest);
-        return new ResponseEntity<>(new ApiResponse(true, result),HttpStatus.CREATED);
-    }catch (ToDoExceptions error){
-        return new ResponseEntity<>(new ApiResponse(false,error.getMessage()), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
+        try {
+            RegisterResponse registerResponse = userServices.register(registerRequest);
+            return new ResponseEntity<>(new ApiResponse(true, registerResponse), HttpStatus.CREATED);
+        } catch (ToDoExceptions error) {
+            return new ResponseEntity<>(new ApiResponse(false, error.getMessage()), HttpStatus.BAD_REQUEST);
+        }
     }
-    }
-    @PostMapping("/set_task")
-    public ResponseEntity<?> setTask(@RequestBody CreateTaskRequest createTaskRequest){
-    try{
-        var result = userServices.setTask(createTaskRequest);
-        return new ResponseEntity<>(new ApiResponse(true, result),HttpStatus.CREATED);
-    }catch (ToDoExceptions error){
-        return new ResponseEntity<>(new ApiResponse(false,error.getMessage()), HttpStatus.BAD_REQUEST);
-    }
-    }
+        @PostMapping("/loggin")
+        public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
+            try{
+                LoginResponse loginResponse = userServices.login(loginRequest);
+                return new ResponseEntity<>(new ApiResponse(true, loginResponse),HttpStatus.ACCEPTED);
+            }catch (ToDoExceptions error){
+                return new ResponseEntity<>(new ApiResponse(false,error.getMessage()), HttpStatus.BAD_REQUEST);
+            }
+
+
+
+        }
     @DeleteMapping("/delete_task")
     public ResponseEntity<?> deleteTask(@RequestBody DeleteTaskRequest deleteTaskRequest){
         try{

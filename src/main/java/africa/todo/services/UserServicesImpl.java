@@ -23,6 +23,7 @@ public class UserServicesImpl implements UserServices {
     private UserRepository userRepository;
     @Autowired
     private TaskServices taskServices;
+
     @Override
     public RegisterResponse register(RegisterRequest registerRequest) {
         helpRegisterWith(registerRequest);
@@ -35,30 +36,25 @@ public class UserServicesImpl implements UserServices {
 
     @Override
     public LoginResponse login(LoginRequest loginRequest) {
-    User user = userRepository.findByUsername(loginRequest.getUsername());
+        User user = userRepository.findByUsername(loginRequest.getUsername());
         validateLogin(loginRequest, user);
         user.setUsername(loginRequest.getUsername());
         user.setPassword(loginRequest.getPassword());
-        user.setLogin(false);
+        user.setLogin(true);
         userRepository.save(user);
         return Mapper.loginResponse(user);
     }
 
     private static void validateLogin(LoginRequest loginRequest, User user) {
-        if(user == null) throw new UserNotFoundException("user not found");
-        if(user.getUsername() == null || !user.getUsername().equalsIgnoreCase(loginRequest.getUsername())) throw new WrongLoginException("incorrect login detail");
-        if(user.getPassword() == null || !user.getPassword().equals(loginRequest.getPassword())) throw new WrongLoginException("incorrect login detail");
+        if (user == null) throw new UserNotFoundException("user not found");
+        if (user.getUsername() == null || !user.getUsername().equalsIgnoreCase(loginRequest.getUsername())){
+            throw new WrongLoginException("incorrect login detail");}
+        if (user.getPassword() == null || !user.getPassword().equals(loginRequest.getPassword())){
+            throw new WrongLoginException("incorrect login detail");}
     }
 
-//    @Override
-//    public CreateTaskResponse setTask(CreateTaskRequest createTaskRequest) {
-//        Optional<User> user = userRepository.findById(createTaskRequest.getUserId());
-//
-//        Task task = taskServices.createTask(createTaskRequest);
-//        user.get().getTasks().add(task);
-//        userRepository.save(user.get());
-//        return Mapper.taskCreatedResponse(task);
-//    }
+
+
 
 
 
@@ -87,7 +83,7 @@ public class UserServicesImpl implements UserServices {
 
     @Override
     public List<Task> findTaskByName(String taskName) {
-       // Task task =
+        // Task task =
 
         return null;
     }
@@ -101,14 +97,14 @@ public class UserServicesImpl implements UserServices {
 
     private void helpRegisterWith(RegisterRequest registerRequest) {
         if (registerRequest == null) throw new NullPointerException("provide username and password");
-        if (registerRequest.getUsername().contains(" ")) throw new IllegalArgumentException("Username should not contain space");
-        if (registerRequest.getPassword().length() < 6) throw new IllegalArgumentException("password should be upto six character!");
-        if (userRepository.existsByUsername(registerRequest.getUsername())){
+        if (registerRequest.getUsername().contains(" "))
+            throw new IllegalArgumentException("Username should not contain space");
+        if (registerRequest.getPassword().length() < 6)
+            throw new IllegalArgumentException("password should be upto six character!");
+        if (userRepository.existsByUsernameIgnoreCase(registerRequest.getUsername())) {
             throw new UserExistsException(String.format("Account with username %s is already in use", registerRequest.getUsername()));
         }
     }
-
-
 
 
 }

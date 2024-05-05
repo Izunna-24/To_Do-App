@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class LoginResponse {
 private String username;
-private boolean isLocked;
+private boolean isLoggedIn;
 }

@@ -7,8 +7,11 @@ import africa.todo.dataTransferObjects.requests.EditTaskRequest;
 import africa.todo.dataTransferObjects.requests.RegisterRequest;
 import africa.todo.dataTransferObjects.responses.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import static java.time.format.DateTimeFormatter.ofPattern;
 
 public class Mapper {
     public static User regMap(RegisterRequest registerRequest) {
@@ -29,8 +32,9 @@ public class Mapper {
         Task task = new Task();
         task.setTaskName(createTaskRequest.getTaskName());
         task.setContent(createTaskRequest.getContent());
-        String formattedDateTime = createTaskRequest.getTaskDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        LocalDateTime parsedDateTime = LocalDateTime.parse(formattedDateTime, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+        LocalDateTime parsedDateTime = LocalDateTime.parse(createTaskRequest.getTaskDateTime(),
+                ofPattern("dd/MM/yyyy HH:mm"));
         task.setTaskDateTime(parsedDateTime);
         task.setCategory(createTaskRequest.getCategory());
         task.setPriority(createTaskRequest.getPriority());
@@ -40,13 +44,13 @@ public class Mapper {
 
 
 
-    public static CreateTaskResponse taskCreatedResponse(Task task) {
-        CreateTaskResponse createTaskResponse = new CreateTaskResponse();
-       createTaskResponse.setTaskId(task.getTaskId());
-       createTaskResponse.setTaskStatus(task.getStatus());
-        createTaskResponse.setTaskName(task.getTaskName());
-        return createTaskResponse;
-    }
+//    public static CreateTaskResponse taskCreatedResponse(Task task) {
+//        CreateTaskResponse createTaskResponse = new CreateTaskResponse();
+//       createTaskResponse.setTaskId(task.getTaskId());
+//       createTaskResponse.setTaskStatus(task.getStatus());
+//        createTaskResponse.setTaskName(task.getTaskName());
+//        return taskCreatedResponse();
+//    }
 
     public static DeleteTaskResponse deleteTaskResponse(Task task) {
         DeleteTaskResponse deleteTaskResponse = new DeleteTaskResponse();
@@ -93,15 +97,19 @@ public class Mapper {
     public static LoginResponse loginResponse(User user){
     LoginResponse loginResponse = new LoginResponse();
     loginResponse.setUsername(user.getUsername());
-    loginResponse.setLocked(user.isLogin());
+    loginResponse.setLoggedIn(user.isLogin());
     return loginResponse;
     }
 
     public static CreateTaskResponse createTaskResponse(Task task){
         CreateTaskResponse createTaskResponse = new CreateTaskResponse();
-        createTaskResponse.setTaskName(task.getTaskName());
-        createTaskResponse.setTaskStatus(task.getStatus());
-        createTaskResponse.setTaskId(task.getTaskId());
+//       createTaskResponse.setTaskName(task.getTaskName());
+//        createTaskResponse.setTaskStatus(task.getStatus());
+//       createTaskResponse.setTaskId(task.getTaskId());
+        createTaskResponse.setTaskDateTime(ofPattern("dd/MM/yyyy hh:mm a").format(task.getTaskDateTime()));
+
+
+        createTaskResponse.setTask(task);
         return createTaskResponse;
     }
 }

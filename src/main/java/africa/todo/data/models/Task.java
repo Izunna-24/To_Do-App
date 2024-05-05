@@ -21,8 +21,8 @@ public class Task {
     private String taskId;
     private String content;
     private Priority priority;
-    private LocalDateTime taskDateTime = LocalDateTime.now();
-    private LocalDateTime dateEdited = LocalDateTime.now();
+    private LocalDateTime taskDateTime;
+    private LocalDateTime dateEdited;
     @DBRef
     private List<Reminder> reminders = new ArrayList<>();
 }

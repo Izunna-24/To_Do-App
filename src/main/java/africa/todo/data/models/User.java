@@ -14,7 +14,7 @@ public class User {
     private String username;
     private String firstName;
     private String lastName;
-    private boolean isLogin = true;
+    private boolean isLogin;
     @Id
     private String userId;
     @DBRef

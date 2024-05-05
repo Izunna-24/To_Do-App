@@ -11,7 +11,7 @@ public class CreateTaskRequest {
     private String userId;
     private String taskName;
     private String content;
-    private LocalDateTime taskDateTime;
+    private String taskDateTime;
     private Category category;
     private Priority priority;
 }

@@ -7,9 +7,7 @@ import africa.todo.dataTransferObjects.requests.EditTaskRequest;
 import africa.todo.dataTransferObjects.requests.RegisterRequest;
 import africa.todo.dataTransferObjects.responses.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import static java.time.format.DateTimeFormatter.ofPattern;
 
@@ -42,16 +40,6 @@ public class Mapper {
             return task;
         }
 
-
-
-//    public static CreateTaskResponse taskCreatedResponse(Task task) {
-//        CreateTaskResponse createTaskResponse = new CreateTaskResponse();
-//       createTaskResponse.setTaskId(task.getTaskId());
-//       createTaskResponse.setTaskStatus(task.getStatus());
-//        createTaskResponse.setTaskName(task.getTaskName());
-//        return taskCreatedResponse();
-//    }
-
     public static DeleteTaskResponse deleteTaskResponse(Task task) {
         DeleteTaskResponse deleteTaskResponse = new DeleteTaskResponse();
         deleteTaskResponse.setTaskId(task.getTaskId());
@@ -64,8 +52,7 @@ public class Mapper {
         EditTaskResponse editTaskResponse = new EditTaskResponse();
         editTaskResponse.setTaskId(task.getTaskId());
         editTaskResponse.setTaskName(task.getTaskName());
-        editTaskResponse.setDateEdited(task.getDateEdited());
-        editTaskResponse.setDateCreated(task.getTaskDateTime());
+        editTaskResponse.setTaskDateTime(ofPattern("dd/MM/yyyy hh:mm a").format(task.getTaskDateTime()));
         return editTaskResponse;
     }
 
@@ -80,10 +67,13 @@ public class Mapper {
     public static Task editTaskMap(EditTaskRequest editTaskRequest, Task task) {
         task.setTaskName(editTaskRequest.getTaskName());
         task.setContent(editTaskRequest.getContent());
-        task.setTaskDateTime(LocalDateTime.now().plusDays(editTaskRequest.getDueDate()));
+        LocalDateTime parsedDateTime = LocalDateTime.parse(editTaskRequest.getTaskDateTime(),
+                ofPattern("dd/MM/yyyy HH:mm"));
+        task.setTaskDateTime(parsedDateTime);
         task.setCategory(editTaskRequest.getCategory());
         task.setPriority(editTaskRequest.getPriority());
-        task.setDateEdited(LocalDateTime.now());
+        task.setUserId(editTaskRequest.getUserId());
+        task.setTaskId(editTaskRequest.getTaskId());
         return task;
     }
 
@@ -103,13 +93,23 @@ public class Mapper {
 
     public static CreateTaskResponse createTaskResponse(Task task){
         CreateTaskResponse createTaskResponse = new CreateTaskResponse();
-//       createTaskResponse.setTaskName(task.getTaskName());
-//        createTaskResponse.setTaskStatus(task.getStatus());
-//       createTaskResponse.setTaskId(task.getTaskId());
+       createTaskResponse.setTaskName(task.getTaskName());
+       createTaskResponse.setTaskStatus(task.getStatus());
+       createTaskResponse.setTaskId(task.getTaskId());
         createTaskResponse.setTaskDateTime(ofPattern("dd/MM/yyyy hh:mm a").format(task.getTaskDateTime()));
 
 
-        createTaskResponse.setTask(task);
+        //createTaskResponse.setTask(task);
         return createTaskResponse;
+    }
+
+    public static AssignTaskResponse assignTaskResponse(Task task, User user,String message){
+        AssignTaskResponse assignTaskResponse = new AssignTaskResponse();
+        assignTaskResponse.setAssignedTaskDateTime(ofPattern("dd/MM/yyyy hh:mm a").format(task.getTaskDateTime()));
+        assignTaskResponse.setAssignerName(user.getUsername());
+        assignTaskResponse.setAssigneeName(user.getUsername());
+        assignTaskResponse.setMessage(message);
+        assignTaskResponse.setAssignedTaskName(task.getTaskName());
+        return assignTaskResponse;
     }
 }

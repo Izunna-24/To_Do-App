@@ -1,14 +1,13 @@
 package africa.todo.dataTransferObjects.responses;
 
+import africa.todo.data.models.Status;
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 @Data
 
 public class EditTaskResponse {
     private String taskId;
     private String taskName;
-    private LocalDateTime dateEdited;
-    private LocalDateTime dateCreated;
+    //private String  dateEdited;
+    private String taskDateTime;
 }

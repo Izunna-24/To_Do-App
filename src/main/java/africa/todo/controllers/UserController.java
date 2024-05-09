@@ -1,9 +1,7 @@
 package africa.todo.controllers;
 
 import africa.todo.dataTransferObjects.requests.*;
-import africa.todo.dataTransferObjects.responses.ApiResponse;
-import africa.todo.dataTransferObjects.responses.LoginResponse;
-import africa.todo.dataTransferObjects.responses.RegisterResponse;
+import africa.todo.dataTransferObjects.responses.*;
 import africa.todo.exceptions.ToDoExceptions;
 import africa.todo.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +39,8 @@ public class UserController {
     @DeleteMapping("/delete_task")
     public ResponseEntity<?> deleteTask(@RequestBody DeleteTaskRequest deleteTaskRequest){
         try{
-            var result = userServices.deleteTask(deleteTaskRequest);
-            return new ResponseEntity<>(new ApiResponse(true, result),HttpStatus.OK);
+            DeleteTaskResponse deleteTaskResponse = userServices.deleteTask(deleteTaskRequest);
+            return new ResponseEntity<>(new ApiResponse(true, deleteTaskResponse),HttpStatus.OK);
         }catch (ToDoExceptions error){
             return new ResponseEntity<>(new ApiResponse(false,error.getMessage()), HttpStatus.BAD_REQUEST);
         }
@@ -51,8 +49,8 @@ public class UserController {
     @GetMapping("/get_task")
     public ResponseEntity<?> getTask(@RequestBody GetTaskRequest getTaskRequest){
         try{
-            var result = userServices.getTask(getTaskRequest);
-            return new ResponseEntity<>(new ApiResponse(true, result),HttpStatus.OK);
+            GetTaskResponse getTaskResponse = userServices.getTask(getTaskRequest);
+            return new ResponseEntity<>(new ApiResponse(true, getTaskResponse),HttpStatus.OK);
         }catch (ToDoExceptions error){
             return new ResponseEntity<>(new ApiResponse(false,error.getMessage()), HttpStatus.NOT_FOUND);
         }
@@ -60,8 +58,8 @@ public class UserController {
     @PatchMapping("/edit_task")
     public ResponseEntity<?> editTask(@RequestBody EditTaskRequest editTaskRequest){
         try{
-            var result = userServices.editTask(editTaskRequest);
-            return new ResponseEntity<>(new ApiResponse(true, result),HttpStatus.OK);
+            EditTaskResponse editTaskResponse = userServices.editTask(editTaskRequest);
+            return new ResponseEntity<>(new ApiResponse(true, editTaskResponse),HttpStatus.OK);
         }catch (ToDoExceptions error){
             return new ResponseEntity<>(new ApiResponse(false,error.getMessage()), HttpStatus.NOT_FOUND);
         }

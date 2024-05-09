@@ -66,7 +66,7 @@ public class UserServicesImpl implements UserServices {
     @Override
     public DeleteTaskResponse deleteTask(DeleteTaskRequest deleteTaskRequest) {
         Optional<User> user = userRepository.findById(deleteTaskRequest.getUserId());
-        Task task = findTask(deleteTaskRequest.getId(), user.get().getTasks());
+        Task task = findTask(deleteTaskRequest.getTaskId(), user.get().getTasks());
         user.get().getTasks().remove(task);
         userRepository.save(user.get());
         return taskServices.deleteTask(deleteTaskRequest);

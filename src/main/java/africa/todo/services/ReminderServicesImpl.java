@@ -15,7 +15,7 @@ public class ReminderServicesImpl implements ReminderServices{
     private ReminderRepository reminderRepository;
     @Override
     public Reminder setReminder(SetReminderRequest setReminderRequest) {
-        Task task = taskServices.findById(setReminderRequest.getTaskId());
+        Task task = taskServices.findTaskById(setReminderRequest.getTaskId());
         Reminder reminder = new Reminder();
         reminder.setReminderTime(setReminderRequest.getReminderTime());
         reminder.setNameOfTask(setReminderRequest.getNameOfTask());

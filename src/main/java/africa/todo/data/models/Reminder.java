@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Data
 @Document("Reminder")
 public class Reminder {
-    private LocalDateTime reminderTime;
+    private String reminderTime;
     private String nameOfTask;
     @Id
     private String reminderId;

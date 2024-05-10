@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.Optional;
 @Repository
 public interface ReminderRepository extends MongoRepository<Reminder, String> {
-    Optional<Reminder> findById(String id);
-//    Optional<Reminder> findReminderByNameOfTask(String nameOfTask);
-//    Optional<Reminder> findReminderByReminderTime(String reminderTime);
+    //Reminder  findById (String id);
+   Optional<Reminder> findReminderByNameOfTask(String nameOfTask);
+   Optional<Reminder> findReminderByReminderTime(String reminderTime);
 }

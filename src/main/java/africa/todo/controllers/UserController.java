@@ -9,8 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.CREATED;
+
 @RestController
 @RequestMapping("/api/v1/user")
+@CrossOrigin(origins = "*")
 public class UserController {
 @Autowired
     private UserServices userServices;
@@ -18,19 +22,19 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
         try {
-            RegisterResponse registerResponse = userServices.register(registerRequest);
-            return new ResponseEntity<>(new ApiResponse(true, registerResponse), HttpStatus.CREATED);
+            var registerResponse = userServices.register(registerRequest);
+            return new ResponseEntity<>(new ApiResponse(true, registerResponse), CREATED);
         } catch (ToDoExceptions error) {
-            return new ResponseEntity<>(new ApiResponse(false, error.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ApiResponse(false, error.getMessage()), BAD_REQUEST);
         }
     }
         @PostMapping("/loggin")
         public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
             try{
                 LoginResponse loginResponse = userServices.login(loginRequest);
-                return new ResponseEntity<>(new ApiResponse(true, loginResponse),HttpStatus.ACCEPTED);
+                return new ResponseEntity<>(new ApiResponse(true, loginResponse), CREATED);
             }catch (ToDoExceptions error){
-                return new ResponseEntity<>(new ApiResponse(false,error.getMessage()), HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new ApiResponse(false,error.getMessage()), BAD_REQUEST);
             }
 
 
@@ -42,7 +46,7 @@ public class UserController {
             DeleteTaskResponse deleteTaskResponse = userServices.deleteTask(deleteTaskRequest);
             return new ResponseEntity<>(new ApiResponse(true, deleteTaskResponse),HttpStatus.OK);
         }catch (ToDoExceptions error){
-            return new ResponseEntity<>(new ApiResponse(false,error.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ApiResponse(false,error.getMessage()), BAD_REQUEST);
         }
     }
 

@@ -101,12 +101,11 @@ public class Mapper {
         return createTaskResponse;
     }
 
-    public static AssignTaskResponse assignTaskResponse(Task task, User user,String message){
+    public static AssignTaskResponse assignTaskResponse(Task task, User user){
         AssignTaskResponse assignTaskResponse = new AssignTaskResponse();
         assignTaskResponse.setAssignedTaskDateTime(ofPattern("dd/MM/yyyy hh:mm a").format(task.getTaskDateTime()));
         assignTaskResponse.setAssignerName(user.getUsername());
         assignTaskResponse.setAssigneeName(user.getUsername());
-        assignTaskResponse.setMessage(message);
         assignTaskResponse.setAssignedTaskName(task.getTaskName());
         return assignTaskResponse;
     }

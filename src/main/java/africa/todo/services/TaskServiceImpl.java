@@ -73,7 +73,7 @@ public class TaskServiceImpl implements TaskServices {
         assignee.getTasks().add(taskToBeAssigned);
         userRepository.saveAll(List.of(assignee, assigner));
         taskRepository.save(taskToBeAssigned);
-        return Mapper.assignTaskResponse(assigner, taskToBeAssigned);
+        return Mapper.assignTaskResponse(taskToBeAssigned, assigner, assignee);
     }
 
 

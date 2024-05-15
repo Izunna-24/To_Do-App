@@ -9,5 +9,5 @@ public class AssignTaskResponse {
     private String assignedTaskName;
     private String assigneeName;
     private String assignedTaskDateTime;
-    private Status assignedTaskStatus;
+    private Status assignedTaskStatus = Status.PENDING;
 }

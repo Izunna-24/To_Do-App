@@ -95,6 +95,13 @@ public class UserServicesImpl implements UserServices {
         return Mapper.getTaskResponse(task);
     }
 
+    @Override
+    public LogoutResponse logOut(LogoutRequest logoutRequest) {
+        User user = userRepository.findByUsername(logoutRequest.getUsername());
+        user.setLogin(false);
+        return Mapper.logoutResponse(user);
+    }
+
     private void helpRegisterWith(RegisterRequest registerRequest) {
         if (registerRequest == null) throw new NullPointerException("provide username and password");
         if (registerRequest.getUsername().contains(" "))

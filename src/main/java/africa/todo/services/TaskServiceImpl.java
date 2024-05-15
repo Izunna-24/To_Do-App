@@ -4,10 +4,7 @@ import africa.todo.data.models.Task;
 import africa.todo.data.models.User;
 import africa.todo.data.repositories.TaskRepository;
 import africa.todo.data.repositories.UserRepository;
-import africa.todo.dataTransferObjects.requests.CreateTaskRequest;
-import africa.todo.dataTransferObjects.requests.DeleteTaskRequest;
-import africa.todo.dataTransferObjects.requests.EditTaskRequest;
-import africa.todo.dataTransferObjects.requests.ViewAllTaskRequest;
+import africa.todo.dataTransferObjects.requests.*;
 import africa.todo.dataTransferObjects.responses.*;
 import africa.todo.exceptions.TaskContentEmptyException;
 import africa.todo.exceptions.TaskNameEmptyException;
@@ -59,15 +56,28 @@ public class TaskServiceImpl implements TaskServices {
 
 
 //    @Override
-//    public AssignTaskResponse assignTask(CreateTaskResponse taskToBeAssigned,
-//                                         User assignee, User assigner, CreateTaskRequest createTaskRequest) {
-//        taskToBeAssigned = createTask(createTaskRequest);
-//        assigner = userRepository.findByUsername(assigner.getUsername());
-//        assigner.setUserId(assignee.getUserId());
+//    public AssignTaskResponse assignTask(AssignTaskRequest assignTaskRequest) {
+//        Task taskToBeAssigned = findTaskById(assignTaskRequest.getTaskId());
+//        if (taskToBeAssigned == null) {
+//            throw new TaskNotFoundException("taskNotFound");
+//        }
 //
+//        User assigner = userRepository.findByUsername(assignTaskRequest.getAssignerUsername());
+//        User assignee = userRepository.findByUsername(assignTaskRequest.getAssigneeUsername());
+//        if (assigner == null || assignee == null) {
+//            throw new UserNotFoundException("User could not be verified!!");
+//        }
+//
+//        assigner.getTasks().remove(taskToBeAssigned);
+//        assignee.getTasks().add(taskToBeAssigned);
+//        userRepository.saveAll(List.of(assignee, assigner));
 //        taskRepository.save(taskToBeAssigned);
-//        return Mapper.assignTaskResponse();
-    //}
+//
+//        return Mapper.assignTaskResponse(, taskToBeAssigned, message);
+//    }
+
+
+
 
     @Override
     public DeleteTaskResponse deleteTask(DeleteTaskRequest deleteTaskRequest) {

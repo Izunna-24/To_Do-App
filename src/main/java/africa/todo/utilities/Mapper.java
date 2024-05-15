@@ -97,8 +97,6 @@ public class Mapper {
        createTaskResponse.setTaskStatus(task.getStatus());
        createTaskResponse.setTaskId(task.getTaskId());
         createTaskResponse.setTaskDateTime(ofPattern("dd/MM/yyyy hh:mm a").format(task.getTaskDateTime()));
-
-
         //createTaskResponse.setTask(task);
         return createTaskResponse;
     }
@@ -111,5 +109,11 @@ public class Mapper {
         assignTaskResponse.setMessage(message);
         assignTaskResponse.setAssignedTaskName(task.getTaskName());
         return assignTaskResponse;
+    }
+
+    public static LogoutResponse logoutResponse(User user){
+        LogoutResponse logoutResponse = new LogoutResponse();
+        logoutResponse.setUsername(user.getUsername());
+        return logoutResponse;
     }
 }

@@ -15,5 +15,6 @@ public interface UserServices {
     DeleteTaskResponse deleteTask(DeleteTaskRequest deleteTaskRequest);
     List<Task> findTaskByName(String taskName);
     GetTaskResponse getTask(GetTaskRequest getTaskRequest);
+    LogoutResponse logOut(LogoutRequest logoutRequest);
 
 }

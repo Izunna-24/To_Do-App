@@ -54,22 +54,22 @@ userRepository.deleteAll();
    }
 
     @Test
-    public void registeredUsers_canLoginTest(){
+    public void registeredUsers_canLoginTest() {
         RegisterRequest registerRequest = new RegisterRequest();
         registerRequest.setFirstName("John");
         registerRequest.setLastName("Doe");
         registerRequest.setUsername("khlone");
         registerRequest.setPassword("password");
-        RegisterResponse userCreated =  userServices.register(registerRequest);
+        RegisterResponse userCreated = userServices.register(registerRequest);
         String userId = userCreated.getUserId();
-        assertEquals(1,userRepository.count());
+        assertEquals(1, userRepository.count());
 
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setUsername("khlone");
         loginRequest.setPassword("password");
         userServices.login(loginRequest);
-        assertEquals(userId,userCreated.getUserId());
-
+        assertEquals(userId, userCreated.getUserId());
+    }
 
 
 

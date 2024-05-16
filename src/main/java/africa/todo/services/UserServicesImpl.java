@@ -129,6 +129,8 @@ public class UserServicesImpl implements UserServices {
             throw new UserNotFoundException("User could not be verified!!");
         }
 
+        taskToBeAssigned.setUserId(assignee.getUserId());
+
         assigner.getTasks().remove(taskToBeAssigned);
         assignee.getTasks().add(taskToBeAssigned);
         userRepository.saveAll(List.of(assignee, assigner));

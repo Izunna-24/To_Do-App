@@ -69,7 +69,7 @@ userRepository.deleteAll();
         loginRequest.setPassword("password");
         userServices.login(loginRequest);
         assertEquals(userId,userCreated.getUserId());
-    }
+
 
 
 

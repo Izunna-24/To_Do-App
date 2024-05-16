@@ -17,7 +17,6 @@ public interface TaskServices {
     List<Task> findAllTask();
     Task findByName(String title);
     Task findTaskById(String id);
-    AssignTaskResponse assignTask(AssignTaskRequest assignTaskRequest);
 
 
 }

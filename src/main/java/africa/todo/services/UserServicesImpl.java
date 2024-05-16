@@ -2,6 +2,7 @@ package africa.todo.services;
 
 import africa.todo.data.models.Task;
 import africa.todo.data.models.User;
+import africa.todo.data.repositories.TaskRepository;
 import africa.todo.data.repositories.UserRepository;
 import africa.todo.dataTransferObjects.requests.*;
 import africa.todo.dataTransferObjects.responses.*;
@@ -23,6 +24,8 @@ public class UserServicesImpl implements UserServices {
     private UserRepository userRepository;
     @Autowired
     private TaskServices taskServices;
+    @Autowired
+    private TaskRepository taskRepository;
 
     @Override
     public RegisterResponse register(RegisterRequest registerRequest) {
@@ -46,7 +49,7 @@ public class UserServicesImpl implements UserServices {
     }
 
     private static void validateLogin(LoginRequest loginRequest, User user) {
-        if (user == null) throw new UserNotFoundException("user not found");
+        if (user == null) throw new UserNotFoundException("user does not exist");
         if (user.getUsername() == null || !user.getUsername().equalsIgnoreCase(loginRequest.getUsername())){
             throw new WrongLoginException("incorrect login detail");}
         if (user.getPassword() == null || !user.getPassword().equals(loginRequest.getPassword())){
@@ -112,6 +115,27 @@ public class UserServicesImpl implements UserServices {
             throw new UserExistsException(String.format("Account with username %s is already in use", registerRequest.getUsername()));
         }
     }
+
+    @Override
+    public AssignTaskResponse assignTask(AssignTaskRequest assignTaskRequest) {
+        Task taskToBeAssigned = taskServices.findTaskById(assignTaskRequest.getTaskId());
+        if (taskToBeAssigned == null) {
+            throw new TaskNotFoundException("Task not available");
+        }
+
+        User assigner = userRepository.findByUsername(assignTaskRequest.getAssignerUsername());
+        User assignee = userRepository.findByUsername(assignTaskRequest.getAssigneeUsername());
+        if (assigner == null || assignee == null) {
+            throw new UserNotFoundException("User could not be verified!!");
+        }
+
+        assigner.getTasks().remove(taskToBeAssigned);
+        assignee.getTasks().add(taskToBeAssigned);
+        userRepository.saveAll(List.of(assignee, assigner));
+        taskRepository.save(taskToBeAssigned);
+        return Mapper.assignTaskResponse(taskToBeAssigned, assigner, assignee);
+    }
+
 
 
 }

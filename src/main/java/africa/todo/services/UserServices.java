@@ -16,5 +16,6 @@ public interface UserServices {
     List<Task> findTaskByName(String taskName);
     GetTaskResponse getTask(GetTaskRequest getTaskRequest);
     LogoutResponse logOut(LogoutRequest logoutRequest);
+    AssignTaskResponse assignTask(AssignTaskRequest assignTaskRequest);
 
 }
